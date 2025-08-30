@@ -1,4 +1,5 @@
 import mongoose, { model, Schema } from "mongoose";
+import { mailSender } from "../utils/MailSender";
 
 interface IOtp {
     email: string;
@@ -22,5 +23,19 @@ const OtpSchema = new Schema<IOtp>({
         expires: 5 * 60,
     },
 });
+
+
+
+// a Function to send Emails
+async function SendVerificationMail(email : string , otp : string){
+    try{
+        const mailResponse = await mailSender(email , "Verification Email From Teachio", otp );
+        console.log("Email Send Successfully : ",mailResponse);
+    }
+    catch(error : any){
+        console.log("Error Occured While sending the mail : " , error);
+        throw error;
+    }
+}
 
 export const OtpModel = model<IOtp>("Otp", OtpSchema);
