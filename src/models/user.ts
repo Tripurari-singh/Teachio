@@ -1,28 +1,42 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { model, Schema, Document } from "mongoose";
 
-const UserSchema = new Schema({
-    FirstName : {
-        type : String,
-        reqired : true,
-        trim : true
+interface IUser extends Document {
+  FirstName: string;
+  LastName: string;
+  email: string;
+  password: string;
+  accountType: "Admin" | "student" | "Instructor";
+  additionalDetals: mongoose.Types.ObjectId;
+  courses: mongoose.Types.ObjectId[];
+  image: string;
+  courseProgress: mongoose.Types.ObjectId[];
+}
+
+const UserSchema = new Schema<IUser>(
+  {
+    FirstName: { type: String, required: true, trim: true },
+    LastName: { type: String, required: true, trim: true },
+    email: { type: String, required: true, trim: true },
+    password: { type: String, required: true },
+    accountType: {
+      type: String,
+      enum: ["Admin", "student", "Instructor"],
+      required: true,
     },
-     LastName : {
-        type : String,
-        reqired : true,
-        trim : true
+    additionalDetals: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Profile",
     },
-     email : {
-        type : String,
-        reqired : true,
-        trim : true
-    },
-     password : {
-        type : String,
-        reqired : true,
-    },
-    accountType : {
-        type : String,
-        enum : ["Admin" , "student" , "Instructor"],
-        required : true
-    }
-})
+    courses: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Course", default: [] },
+    ],
+    image: { type: String, required: true },
+    courseProgress: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "CourseProgress" },
+    ],
+  },
+  { timestamps: true }
+);
+
+export const UserModel = model<IUser>("User", UserSchema);
