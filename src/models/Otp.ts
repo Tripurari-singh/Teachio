@@ -37,5 +37,12 @@ async function SendVerificationMail(email : string , otp : string){
         throw error;
     }
 }
+ 
+// Pre Save Hook => Runs before an operation.
+
+OtpSchema.pre("save" , async function (next){
+    await SendVerificationMail(this.email , this.otp);
+    next();
+} ) 
 
 export const OtpModel = model<IOtp>("Otp", OtpSchema);
