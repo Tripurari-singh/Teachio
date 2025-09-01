@@ -1,1 +1,1 @@
-{"root":["./src/index.ts"],"version":"5.9.2"}
+{"root":["./src/config/database.ts","./src/controllers/auth.ts","./src/controllers/resetpassword.ts","./src/models/course.ts","./src/models/courseprogress.ts","./src/models/otp.ts","./src/models/profile.ts","./src/models/ratingandreview.ts","./src/models/section.ts","./src/models/subsection.ts","./src/models/tags.ts","./src/models/user.ts","./src/utils/mailsender.ts"],"version":"5.9.2"}

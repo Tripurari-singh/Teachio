@@ -5,6 +5,8 @@ interface IUser extends Document {
   LastName: string;
   email: string;
   password: string;
+  token: string,
+  resetPasswordExpires : Date,
   accountType: "Admin" | "student" | "Instructor";
   additionalDetals: mongoose.Types.ObjectId;
   courses: mongoose.Types.ObjectId[];
@@ -27,6 +29,12 @@ const UserSchema = new Schema<IUser>(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "Profile",
+    },
+    token : {
+      type : String,
+    },
+    resetPasswordExpires : {
+      type : Date
     },
     courses: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Course", default: [] },
