@@ -12,10 +12,13 @@ export const resetPasswordExpires = async (req : Request<{}, {}, ResetPasswordBo
     try {
             // Get email
     const email = req.body?.email;
+
     // Email validation
     const user = await UserModel.findOne({email})
+
     // Generate Token
     const token = crypto.randomUUID;
+
     // Update UserModel by adding token and expiration Time
     const updatedDetails = await UserModel.findOneAndUpdate({email : email} , {
         token : token,
@@ -24,12 +27,14 @@ export const resetPasswordExpires = async (req : Request<{}, {}, ResetPasswordBo
         // It Actually Updates The Model
         new : true
     })
+
     // Create URL
     const url = `http://localhost:3000/update-password/${token}`;
     // Send Mail Containing URL
     await mailSender(email , "password Reset Link" , 
         `Password Reset Link : ${url}`
     )
+
     // REtuen Response 
     return res.status(200).json({
         success : true , 
@@ -71,6 +76,7 @@ export const resetPassword = async (req : Request , res : Response) => {
             message : "User Not Found / Invalid Token",
         })
        }
+
        // Token Time Check
        if(UserDetails.resetPasswordExpires.getTime() < Date.now()){
         return res.status(403).json({
@@ -78,6 +84,7 @@ export const resetPassword = async (req : Request , res : Response) => {
             message : "TokenHas been Expired"
         })
        }
+
        // Hash The Pssword and Update the Password in UserModel
        const HashedPassword = await bcrypt.hash(password , 10);
        await UserModel.findOneAndUpdate({token : token} , {
@@ -86,6 +93,7 @@ export const resetPassword = async (req : Request , res : Response) => {
         // It actually Updated The Password in The Database
         new : true
        })
+       
        // Return Response 
        return res.status(200).json({
         success : true,

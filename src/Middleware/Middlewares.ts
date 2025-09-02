@@ -1,6 +1,4 @@
 import jwt from "jsonwebtoken";
-import { UserModel } from "../models/User";
-import bcrypt from "bcrypt";
 import { Request , Response , NextFunction } from "express";
 import dotenv from "dotenv";
 dotenv.config();
@@ -20,7 +18,6 @@ export const auth = async (req : Request , res : Response , next : NextFunction)
     const token = req.body.token ||
                   req.cookies.token ||
                   req.header("Authorisation")?.replace("Bearer" , "");
-
     if(!token){
         return res.status(403).json({
             success : false,
