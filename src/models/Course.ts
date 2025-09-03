@@ -1,25 +1,25 @@
 import mongoose, { model, Schema } from "mongoose";
 
 interface ICourse {
-    name: string;
-    description: string;
+    courseName: string;
+    courseDescription: string;
     instructor: mongoose.Types.ObjectId;
     whatToLearn: string[];
     courseContent: mongoose.Types.ObjectId[];
     ratingAndReviews: mongoose.Types.ObjectId[];
     price: number;
     thumbnail: string;
-    tags: mongoose.Types.ObjectId[];
+    tags: mongoose.Types.ObjectId;
     studentsEnrolled: mongoose.Types.ObjectId[];
 }
 
 const CourseSchema = new Schema<ICourse>({
-    name: {
+    courseName: {
         type: String,
         required: true,
         trim: true,
     },
-    description: {
+    courseDescription : {
         type: String,
         required: true,
         trim: true,
@@ -59,12 +59,11 @@ const CourseSchema = new Schema<ICourse>({
 
     // can be Probabally an array....
     // Need To Check
-    tags: [
+    tags: 
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Tag",
         },
-    ],
     studentsEnrolled: [
         {
             type: mongoose.Schema.Types.ObjectId,
