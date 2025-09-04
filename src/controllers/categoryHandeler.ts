@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import z, { string } from "zod";
-import { TagModel } from "../models/Tags";
+import { categoryModel } from "../models/category";
 
-export const createTag = async(req : Request , res : Response) => {
+export const createcategory = async(req : Request , res : Response) => {
     try{
              // Fetch Data
     const TagSchema = z.object({
@@ -21,7 +21,7 @@ export const createTag = async(req : Request , res : Response) => {
    }
 
    // Add to UserModel
-   const tagDetails = await TagModel.create({
+   const tagDetails = await categoryModel.create({
         name : name,
         description : description,z
    })
@@ -45,10 +45,10 @@ export const createTag = async(req : Request , res : Response) => {
 
 
   //  Get All Tags Handeler Function
-  export const showAllTags = async(req : Request , res : Response) => {
+  export const showAllcategory = async(req : Request , res : Response) => {
     try{
         // Find all Tags That have name , description
-        const allTags = await TagModel.find({} , {
+        const allcategory = await categoryModel.find({} , {
             name : true , 
             description : true,
         })
@@ -56,7 +56,7 @@ export const createTag = async(req : Request , res : Response) => {
         return res.status(200).json({
             success : true,
             message : "All Tags Returned Successfully",
-            allTags,
+            allcategory,
         })
     }
     catch(error){

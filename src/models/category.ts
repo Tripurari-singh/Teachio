@@ -1,12 +1,12 @@
 import mongoose, { model, Schema } from "mongoose";
 
-interface ITag {
+interface Icategory {
     name: string;
     description: string;
     courses: mongoose.Types.ObjectId;
 }
 
-const TagSchema = new Schema<ITag>({
+const categorySchema = new Schema<Icategory>({
     name: {
         type: String,
         required: true,
@@ -23,4 +23,4 @@ const TagSchema = new Schema<ITag>({
         },
 }, { timestamps: true });
 
-export const TagModel = model<ITag>("Tag", TagSchema);
+export const categoryModel  = model<Icategory>("Tag", categorySchema);
