@@ -1,7 +1,7 @@
 import { SubSectionModel } from "../models/SubSection";
 import { SectionModel } from "../models/Section";
 import { Request , Response } from "express";
-import z from "zod";
+import z, { success } from "zod";
 import { UploadedFile } from "express-fileupload";
 import { uploadImageToCloudinary } from "../utils/ImageUploader";
 
@@ -86,7 +86,31 @@ export const createSubSection = async(req : FileRequest , res : Response) => {
 
 export const SubsectionDelete = async(req : Request , res : Response) => {
     try{
-       
+       // Fetch Data
+       const SubSectionInputSchema = z.object({
+            subsectionId : z.string(),
+            title : z.string(),
+            timeDuration : z.string(),
+            description : z.string(),
+        })
+
+        const {subsectionId , title , description , timeDuration , } = SubSectionInputSchema.parse(req.body);
+
+       // Update
+       const updatedSubSectionDetails = await SubSectionModel.findByIdAndUpdate(subsectionId , {
+        title,
+        description,
+        timeDuration
+       } , {
+        new : true
+       })
+
+       // Return
+       return res.status(200).json({
+        success : true,
+        message : "SubSection Updated Suuccessully",
+        data : updatedSubSectionDetails,
+       })
     }
     catch(error){
         console.log(error);
@@ -101,7 +125,17 @@ export const SubsectionDelete = async(req : Request , res : Response) => {
 // Delete SubSection
 export const SubsectionUpdate = async(req : Request , res : Response) => {
     try{
-       
+       // Fetch
+       const { subsectionId } = req.body;
+
+       // Delete
+       await SubSectionModel.findByIdAndDelete(subsectionId);
+
+       // Return Response
+        return res.status(200).json({
+        success : true,
+        message : "SubSection Deleted Suuccessully",
+       })
     }
     catch(error){
         console.log(error);
