@@ -63,7 +63,7 @@ export const createSubSection = async(req : FileRequest , res : Response) => {
             }
         } , {
             new : true
-        }).populate("subsection")
+        }).populate("subsection").exec();
 
 
         // Return Response
