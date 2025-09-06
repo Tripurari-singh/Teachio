@@ -4,6 +4,7 @@ import { UserModel } from "../models/User";
 import { courseEnrollmentEmail } from "../Mail/courseEnrollementemail";
 import { Request , Response } from "express";
 import mongoose from "mongoose";
+import { createHmac } from "crypto";
 
 // Capture the payment and initalise the Razorpau Order
 export const capturePayment = async(req : Request , res : Response) => {
@@ -103,6 +104,9 @@ export const verifySignature = async(req : Request , res : Response) => {
         const webHookSecret = "wfdbwudhgewfiu";
 
         const signature = req.headers["x-razorpay-signature"];
+
+        // Create a Hmac Object to Implement Hashing via sha256 Algorithm.....
+        const shasum = crypto.createHmac("sha256" , webHookSecret);
      }
     catch(error){
         console.log(error);
