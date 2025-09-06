@@ -5,6 +5,8 @@ import { courseEnrollmentEmail } from "../Mail/courseEnrollementemail";
 import { Request , Response } from "express";
 import mongoose from "mongoose";
 import { createHmac } from "crypto";
+import crypto from "crypto";
+
 
 // Capture the payment and initalise the Razorpau Order
 export const capturePayment = async(req : Request , res : Response) => {
@@ -99,7 +101,6 @@ export const capturePayment = async(req : Request , res : Response) => {
     
 }
 
-import crypto from "crypto";
 
 export const verifySignature = async (req: Request, res: Response) => {
   try {
@@ -112,6 +113,57 @@ export const verifySignature = async (req: Request, res: Response) => {
     const digest = shasum.digest("hex");
 
     if (digest === signature) {
+        console.log("Payment is Authorised");
+        const {courseId , userId } = req.body.payload.payment.entity.notes;
+
+        try{
+            // Complete teh Task
+            // Enroll the Student in the Course as Payment is Completed
+            // Find Course and add studentId in it.
+            const enrollCourse = await CourseModel.findByIdAndUpdate(
+                {_id : courseId},
+                {
+                    $push : {
+                        studentsEnrolled : userId
+                    }
+                },
+                {
+                    new : true
+                }
+            )
+
+            if(!enrollCourse){
+                return res.status(500).json({
+                    success : false,
+                    message : "Failed to add teh User in the CourseModel"
+                })
+            }
+            console.log(enrollCourse);
+
+            // Now Find the Student and update the course Detail in the DB
+            const enrollStudent = await UserModel.findByIdAndUpdate(
+                {_id : userId},
+                {
+                    $push : {
+                        courses : courseId
+                    }
+                },
+                {
+                    new : true
+                }
+            )
+             if(!enrollStudent){    
+                return res.status(500).json({
+                    success : false,
+                    message : "Failed to Add the course in UserModel"
+                })
+            }
+
+            console.log(enrollStudent);
+        }catch(error){
+
+        }
+
       return res.status(200).json({
         success: true,
         message: "Signature verified successfully",
