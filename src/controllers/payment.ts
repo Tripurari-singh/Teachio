@@ -99,20 +99,34 @@ export const capturePayment = async(req : Request , res : Response) => {
     
 }
 
-export const verifySignature = async(req : Request , res : Response) => {
-    try {
-        const webHookSecret = "wfdbwudhgewfiu";
+import crypto from "crypto";
 
-        const signature = req.headers["x-razorpay-signature"];
+export const verifySignature = async (req: Request, res: Response) => {
+  try {
+    const webHookSecret = "wfdbwudhgewfiu";
+    const signature = req.headers["x-razorpay-signature"] as string;
+    const body = JSON.stringify(req.body);
 
-        // Create a Hmac Object to Implement Hashing via sha256 Algorithm.....
-        const shasum = crypto.createHmac("sha256" , webHookSecret);
-     }
-    catch(error){
-        console.log(error);
-        return res.status(500).json({
-            success : false,
-            message : "something Went Wrong while verifying verifying the Payment Signature"
-        })
+    const shasum = crypto.createHmac("sha256", webHookSecret);
+    shasum.update(body);
+    const digest = shasum.digest("hex");
+
+    if (digest === signature) {
+      return res.status(200).json({
+        success: true,
+        message: "Signature verified successfully",
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid signature",
+      });
     }
-}
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while verifying the Payment Signature",
+    });
+  }
+};
