@@ -9,7 +9,7 @@ interface ICourse {
     ratingAndReviews: mongoose.Types.ObjectId[];
     price: number;
     thumbnail: string;
-    tags: mongoose.Types.ObjectId;
+    category: mongoose.Types.ObjectId;
     studentsEnrolled: mongoose.Types.ObjectId[];
 }
 
@@ -59,7 +59,7 @@ const CourseSchema = new Schema<ICourse>({
 
     // can be Probabally an array....
     // Need To Check
-    tags: 
+    category: 
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Tag",

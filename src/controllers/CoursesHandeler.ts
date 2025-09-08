@@ -162,3 +162,52 @@ export const getAllCources = async (req : Request , res : Response) => {
         })
     }
 }
+
+// Get Course Details
+export const getCourseDetails = async (req : Request , res : Response) => {
+    try{
+        // Get UserId
+        const courseId = req.body;
+
+        // Fetch course Details
+        const courseDetails = await CourseModel.findById(courseId).populate(
+            {
+                path : "instructor",
+                populate : {
+                    path : "additionalDetals"
+                }
+            }
+        )
+        .populate("category")
+        .populate("ratingAndReviews")
+        .populate(
+            {
+                path : "courseContent",
+                populate : {
+                    path : "SubSection"
+                }
+            }
+        ).exec();
+
+        if(!courseDetails){
+            return res.status(400).json({
+                success : false,
+                message  : "Failed to Fetch Course Details"
+            })
+        }
+        // Return Response
+         return res.status(200).json({
+                success : false,
+                message  : "Fetched Course Details Successfully !",
+                data : courseDetails,
+            })
+
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success : false,
+            message : "something Wrong Happened While getting course Details"
+        })
+    }
+}

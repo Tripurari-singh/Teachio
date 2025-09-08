@@ -4,6 +4,7 @@ interface IRatingAndReview {
     user: mongoose.Types.ObjectId;
     rating: number;
     review: string;
+    course : mongoose.Types.ObjectId,
 }
 
 const RatingAndReviewSchema = new Schema<IRatingAndReview>({
@@ -22,6 +23,12 @@ const RatingAndReviewSchema = new Schema<IRatingAndReview>({
         type: String,
         trim: true,
     },
+    course : {
+        type : mongoose.Schema.Types.ObjectId,
+        required : true,
+        ref : "Course",
+        index : true
+    }
 }, { timestamps: true });
 
 export const RatingAndReviewModel = model<IRatingAndReview>("RatingAndReview", RatingAndReviewSchema);
