@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import z, { string } from "zod";
+import z from "zod";
 import { categoryModel } from "../models/category";
 
 export const createcategory = async(req : Request , res : Response) => {
@@ -65,5 +65,13 @@ export const createcategory = async(req : Request , res : Response) => {
             success : false,
             message : "Something wrong Happened while Getting All Tags....",
         })
+    }
+  }
+
+  export const categoryPageDetails = async (req : Request , res : Response) => {
+    try{
+        
+    }catch(error){
+        
     }
   }

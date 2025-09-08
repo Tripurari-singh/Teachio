@@ -74,15 +74,46 @@ export const averageRating = async(req  : Request , res : Response) => {
     try {
         // Get course Id
         const courseId = req.body.courseId;
+ 
+        // validation
+         if (!mongoose.isValidObjectId(courseId)) {
+          return res.status(400).json({
+                   success: false,
+                   message: "Invalid courseId",
+            });
+}
+
+
         // calculate avg rating 
         const result = await RatingAndReviewModel.aggregate([
             {
                 $match : {
                     course : new mongoose.Types.ObjectId(courseId)
                 }
+            },
+            {
+                $group : {
+                    _id : null,
+                    averageRating : {$avg : "$rating"}
+                }
             }
         ])  
         // Return Response
+       if(result.length > 0){
+         return res.status(200).json({
+            success : true,
+            message : "Avg Rating Returned Successfully",
+            averageRating : result[0].averageRating,
+        })
+       }
+       
+       // If No Rating Review Has Been Passed
+         return res.status(200).json({
+            success : false,
+            message : "No Rating Given Till Now",
+            averageRating : 0
+        })
+       
     }
     catch(error){
     console.log(error);
@@ -92,4 +123,31 @@ export const averageRating = async(req  : Request , res : Response) => {
     })
     }
 }
-// Get All Rating
+// Get All Rating & Reviews
+export const getAllRatings = async(req : Request , res : Response) => {
+    try {
+        const allRatings = await RatingAndReviewModel.find({}).sort({rating : "desc"})
+        .populate({
+            path : "user",
+            select : "firstName , lastName , email , image",
+        })
+        .populate({
+            path : "course",
+            select : "courseName",
+        }).exec();
+
+        // Return Response
+        return res.status(200).json({
+            success : true,
+            message : "Ratings Fetched Suuccessfully",
+            data : allRatings,
+        })
+
+    }catch(error){
+        console.log(error);
+    return res.status(500).json({
+        success : false,
+        message : "Something wrong Happened while getting Average Review"
+    })
+    }
+}
