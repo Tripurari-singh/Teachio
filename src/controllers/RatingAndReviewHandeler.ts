@@ -1,7 +1,7 @@
 import { CourseModel } from "../models/Course";
 import { Request , Response } from "express";
 import { RatingAndReviewModel } from "../models/RatingAndReview";
-
+import mongoose from "mongoose";
 // Create Rating
 export const createRating = async(req : Request , res : Response) => {
 try {
@@ -68,3 +68,28 @@ catch(error){
     })
 }
 }
+
+// Get Average Rating
+export const averageRating = async(req  : Request , res : Response) => {
+    try {
+        // Get course Id
+        const courseId = req.body.courseId;
+        // calculate avg rating 
+        const result = await RatingAndReviewModel.aggregate([
+            {
+                $match : {
+                    course : new mongoose.Types.ObjectId(courseId)
+                }
+            }
+        ])  
+        // Return Response
+    }
+    catch(error){
+    console.log(error);
+    return res.status(500).json({
+        success : false,
+        message : "Something wrong Happened while getting Average Review"
+    })
+    }
+}
+// Get All Rating
