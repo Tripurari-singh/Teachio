@@ -17,10 +17,12 @@ const categorySchema = new Schema<Icategory>({
         type: String,
         trim: true,
     },
-    courses :  {
+    courses :  [
+        {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Course",
         },
+    ],
 }, { timestamps: true });
 
 export const categoryModel  = model<Icategory>("Tag", categorySchema);
