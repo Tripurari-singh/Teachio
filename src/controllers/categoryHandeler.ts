@@ -75,7 +75,7 @@ export const createcategory = async(req : Request , res : Response) => {
 
 
         // Fetch all the courses for that CategoryId
-        const selectedCategoryCources = await categoryModel.findById(categoryId)
+        const selectedCategoryCourses = await categoryModel.findById(categoryId)
         .populate("courses").exec();
 
 
@@ -101,14 +101,14 @@ export const createcategory = async(req : Request , res : Response) => {
             success :true,
             message : "Category page Details Fetched Successfullly",
             selectedCategoryCourses,
-            differentCategoriesCourses
+            differentCategoriesCourses,
         })
 
     }catch(error){
          console.log(error);
         return res.status(500).json({
             success : false,
-            message : "Something wrong Happened while Getting All Tags....",
+            message : "Something wrong Happened while Getting category pages Content....",
         })
     }
   }
