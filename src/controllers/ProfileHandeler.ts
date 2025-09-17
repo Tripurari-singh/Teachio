@@ -2,6 +2,7 @@ import { Request , Response } from "express";
 import z from "zod";
 import { ProfileModel } from "../models/Profile";
 import { UserModel } from "../models/User";
+import { uploadImageToCloudinary } from "../utils/ImageUploader";
 
 export const updateProfile = async(req: Request , res : Response) => {
     try{
@@ -115,11 +116,100 @@ export const getAllUserDetais = async (req : Request , res : Response) => {
 }
 
 // update Display Picture
-export const updateDisplayPicture = async (req : Request , res : Response ) => {
-    try{
-        
-    }catch(error){
-
-    }
+// Extend Express Request to include `files` and `user`
+interface CustomRequest extends Request {
+  files?: {
+    displayPicture?: any; // can be Express.Multer.File if using Multer
+  };
+  user?: {
+    id: string;
+  };
 }
+
+export const updateDisplayPicture = async (req: Request, res: Response) => {
+  try {
+    const displayPicture = req.files?.displayPicture;
+    if (!displayPicture) {
+      return res.status(400).json({
+        success: false,
+        message: "No display picture provided",
+      });
+    }
+    //@ts-ignore
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized: user not found",
+      });
+    }
+
+    const image = await uploadImageToCloudinary(
+        //@ts-ignore
+      displayPicture,
+      process.env.FOLDER_NAME as string,
+      1000,
+      1000
+    );
+
+    const updatedProfile = await UserModel.findByIdAndUpdate(
+      userId,
+      { image: image.secure_url },
+      { new: true }
+    );
+
+    return res.json({
+      success: true,
+      message: "Image updated successfully",
+      data: updatedProfile,
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 // Get all cources
+// Extend Request type to include `user`
+interface CustomRequest extends Request {
+  user?: {
+    id: string;
+  };
+}
+
+export const getEnrolledCourses = async (req: Request, res: Response) => {
+  try {
+    //@ts-ignore
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized: user not found",
+      });
+    }
+
+    const userDetails = await UserModel.findOne({ _id: userId })
+      .populate("courses")
+      .exec();
+
+    if (!userDetails) {
+      return res.status(404).json({
+        success: false,
+        message: `Could not find user with id: ${userId}`,
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: userDetails.courses,
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
