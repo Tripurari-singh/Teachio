@@ -8,24 +8,24 @@ import {  createRating,  getAllRatings,  averageRating } from "../controllers/Ra
 
 const router = Router();
 
-router.post("/api/v1/category/create", auth, IsAdmin, createcategory);     
-router.get("/api/v1/category/all", showAllcategory);                         
-router.get("/api/v1/category/:id", categoryPageDetails);                     
+router.post("/create", auth, IsAdmin, createcategory);     
+router.get("/all", showAllcategory);                         
+router.get("/:id", categoryPageDetails);                     
 
-router.post("/api/v1/course/create", auth, isInstructor, createCourse);     
-router.get("/api/v1/course/all", getAllCources);                             
-router.get("/api/v1/course/:id", getCourseDetails);                         
+router.post("/create", auth, isInstructor, createCourse);     
+router.get("/all", getAllCources);                             
+router.get("/:id", getCourseDetails);                         
 
-router.post("/api/v1/section/create", auth, isInstructor, createSection);   
-router.put("/api/v1/section/update/:id", auth, isInstructor, updateSection);
-router.delete("/api/v1/section/delete/:id", auth, isInstructor, sectionDelete); 
+router.post("/create", auth, isInstructor, createSection);   
+router.put("/update/:id", auth, isInstructor, updateSection);
+router.delete("/delete/:id", auth, isInstructor, sectionDelete); 
 
-router.post("/api/v1/subsection/create", auth, isInstructor, createSubSection);  
-router.put("/api/v1/subsection/update/:id", auth, isInstructor, SubsectionUpdate); 
-router.delete("/api/v1/subsection/delete/:id", auth, isInstructor, SubsectionDelete); 
+router.post("/create", auth, isInstructor, createSubSection);  
+router.put("/update/:id", auth, isInstructor, SubsectionUpdate); 
+router.delete("/delete/:id", auth, isInstructor, SubsectionDelete); 
 
-router.post("/api/v1/rating/create", auth, isStudent, createRating);        
-router.get("/api/v1/rating/all", getAllRatings);                         
-router.get("/api/v1/rating/average/:courseId", averageRating);             
+router.post("/create", auth, isStudent, createRating);        
+router.get("/all", getAllRatings);                         
+router.get("/average/:courseId", averageRating);             
 
 export default router;
