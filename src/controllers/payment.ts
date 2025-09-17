@@ -1,13 +1,10 @@
 import { instance } from "../config/razorpay";
 import { CourseModel } from "../models/Course";
 import { UserModel } from "../models/User";
-import { courseEnrollmentEmail } from "../Mail/courseEnrollementemail";
 import { Request , Response } from "express";
 import mongoose from "mongoose";
-import { createHmac } from "crypto";
 import crypto from "crypto";
 import { mailSender } from "../utils/MailSender";
-import { success } from "zod";
 
 
 // Capture the payment and initalise the Razorpau Order
