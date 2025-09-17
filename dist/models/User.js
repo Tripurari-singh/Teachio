@@ -50,6 +50,12 @@ const UserSchema = new mongoose_1.Schema({
         required: true,
         ref: "Profile",
     },
+    token: {
+        type: String,
+    },
+    resetPasswordExpires: {
+        type: Date
+    },
     courses: [
         { type: mongoose_1.default.Schema.Types.ObjectId, ref: "Course", default: [] },
     ],

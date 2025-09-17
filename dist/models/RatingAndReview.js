@@ -51,5 +51,11 @@ const RatingAndReviewSchema = new mongoose_1.Schema({
         type: String,
         trim: true,
     },
+    course: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        required: true,
+        ref: "Course",
+        index: true
+    }
 }, { timestamps: true });
 exports.RatingAndReviewModel = (0, mongoose_1.model)("RatingAndReview", RatingAndReviewSchema);

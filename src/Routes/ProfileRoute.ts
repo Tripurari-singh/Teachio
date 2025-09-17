@@ -4,10 +4,10 @@ import { auth } from "../Middleware/Middlewares";
 
 const router = Router();
 
-router.get("/api/v1/profile/me" , auth , getAllUserDetais);
-router.put("/api/v1/profile/update" , auth, updateProfile);
-router.put("/api/v1/profile/update-dp" , auth , updateDisplayPicture);
-router.get("/api/v1/profile/enrolled-courses" , auth , getEnrolledCourses);
-router.delete("/api/v1/profile/delete" , auth,  deleteProfile);
+router.get("/me" , auth , getAllUserDetais);
+router.put("/update" , auth, updateProfile);
+router.put("/update-dp" , auth , updateDisplayPicture);
+router.get("/enrolled-courses" , auth , getEnrolledCourses);
+router.delete("/delete" , auth,  deleteProfile);
 
 export default router;

@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 // Import your routes
 import coursesRoutes from "./Routes/courseRoute";
 import profileRoutes from "./Routes/ProfileRoute";
-import userRoutes from "./Routes/userRoute";   // e.g., auth routes
+import userRoutes from "./Routes/userRoute";   // auth routes
 
 // Import DB connection
 import { connect } from "./config/database";
@@ -26,15 +26,18 @@ app.use("/api/v1/user", userRoutes);
 
 // Test route
 app.get("/", (req: Request, res: Response) => {
-  res.send("API is running...");
+  res.send("Server is running...");
 });
 
 // Connect to DB then start server
 const PORT = process.env.PORT || 5000;
-connect().then(() => {
-  app.listen(PORT, () => {
-    console.log(` Server running on port ${PORT}`);
+
+connect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(` Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error(" Failed to connect to DB:", err);
   });
-}).catch((err) => {
-  console.error(" Failed to connect to DB:", err);
-});

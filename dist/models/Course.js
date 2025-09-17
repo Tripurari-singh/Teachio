@@ -36,12 +36,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CourseModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const CourseSchema = new mongoose_1.Schema({
-    name: {
+    courseName: {
         type: String,
         required: true,
         trim: true,
     },
-    description: {
+    courseDescription: {
         type: String,
         required: true,
         trim: true,
@@ -80,12 +80,10 @@ const CourseSchema = new mongoose_1.Schema({
     },
     // can be Probabally an array....
     // Need To Check
-    tags: [
-        {
-            type: mongoose_1.default.Schema.Types.ObjectId,
-            ref: "Tag",
-        },
-    ],
+    category: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "Tag",
+    },
     studentsEnrolled: [
         {
             type: mongoose_1.default.Schema.Types.ObjectId,
