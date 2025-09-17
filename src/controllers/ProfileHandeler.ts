@@ -113,3 +113,13 @@ export const getAllUserDetais = async (req : Request , res : Response) => {
         })
     }
 }
+
+// update Display Picture
+export const updateDisplayPicture = async (req : Request , res : Response ) => {
+    try{
+        
+    }catch(error){
+
+    }
+}
+// Get all cources
