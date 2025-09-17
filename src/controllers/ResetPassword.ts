@@ -1,4 +1,3 @@
-import { success } from "zod";
 import { UserModel } from "../models/User";
 import { mailSender } from "../utils/MailSender";
 import { Request , Response ,  } from "express";

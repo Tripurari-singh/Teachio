@@ -5,15 +5,10 @@ import z, { success } from "zod";
 import { UploadedFile } from "express-fileupload";
 import { uploadImageToCloudinary } from "../utils/ImageUploader";
 
-interface FileRequest extends Request {
-      files?: {
-    [fieldname: string]: UploadedFile | UploadedFile[];
-  };
-}
 
 
 // Create SubSection
-export const createSubSection = async(req : FileRequest , res : Response) => {
+export const createSubSection = async(req : Request , res : Response) => {
     try{
         // Fetch data & Validation
         const SubSectionInputSchema = z.object({

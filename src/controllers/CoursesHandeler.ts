@@ -27,7 +27,7 @@ export const objectIdSchema = z
   .transform((val) => new mongoose.Types.ObjectId(val));
 
 // Handeler Function For creating Course
-export const createCourse = async (req : AuthRequest , res : Response) => {
+export const createCourse = async (req : Request , res : Response) => {
     try {
         // Fetch Data
     const courseDataSchema = z.object({
@@ -55,12 +55,14 @@ export const createCourse = async (req : AuthRequest , res : Response) => {
     // const courseThumbnail = req?.files.thumbnailImage;
 
     // check for Instructor -> we also need to Store Instructor in course Hence we need to Fetch The ObjectId
+    //@ts-ignore
     if(!req.user){
         return res.status(400).json({
             success : false,
             message : "No userId Found for Instructor.",
         })
     }
+    //@ts-ignore
     const userId = req.user.id;
     const InstructorDetails = await UserModel.findById(userId);
     if(!InstructorDetails){
