@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/me" , auth , getAllUserDetais);
 router.put("/update" , auth, updateProfile);
-router.put("/update-dp" , auth , updateDisplayPicture);
+router.put("/update-dp" , updateDisplayPicture);   // Also Need auth Middleware
 router.get("/enrolled-courses" , auth , getEnrolledCourses);
 router.delete("/delete" , auth,  deleteProfile);
 

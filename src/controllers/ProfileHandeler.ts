@@ -128,6 +128,13 @@ interface CustomRequest extends Request {
 
 export const updateDisplayPicture = async (req: Request, res: Response) => {
   try {
+
+
+    // const displayPicture = req.file;
+    //    if (!displayPicture) {
+    //    return res.status(400).json({ success: false, message: "No file uploaded" });
+    //    }
+
     const displayPicture = req.files?.displayPicture;
     if (!displayPicture) {
       return res.status(400).json({
@@ -135,6 +142,7 @@ export const updateDisplayPicture = async (req: Request, res: Response) => {
         message: "No display picture provided",
       });
     }
+    
     //@ts-ignore
     const userId = req.user?.id;
     if (!userId) {
