@@ -126,24 +126,76 @@ interface CustomRequest extends Request {
   };
 }
 
+// export const updateDisplayPicture = async (req: Request, res: Response) => {
+
+//   try {
+
+
+//     // const displayPicture = req.file;
+//     //    if (!displayPicture) {
+//     //    return res.status(400).json({ success: false, message: "No file uploaded" });
+//     //    }
+
+//     const displayPicture = req.files?.displayPicture;
+//     if (!displayPicture) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "No display picture provided",
+//       });
+//     }
+    
+//     //@ts-ignore
+//     const userId = req.user?.id;
+//     if (!userId) {
+//       return res.status(401).json({
+//         success: false,
+//         message: "Unauthorized: user not found",
+//       });
+//     }
+
+//     const image = await uploadImageToCloudinary(
+//         //@ts-ignore
+//       displayPicture,
+//       process.env.FOLDER_NAME as string,
+//       1000,
+//       1000
+//     );
+
+//     const updatedProfile = await UserModel.findByIdAndUpdate(
+//       userId,
+//       { image: image.secure_url },
+//       { new: true }
+//     );
+
+//     return res.json({
+//       success: true,
+//       message: "Image updated successfully",
+//       data: updatedProfile,
+//     });
+//   } catch (error: any) {
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
+// Get all cources
+// Extend Request type to include `user`
+
+
+
 export const updateDisplayPicture = async (req: Request, res: Response) => {
   try {
-
-
-    // const displayPicture = req.file;
-    //    if (!displayPicture) {
-    //    return res.status(400).json({ success: false, message: "No file uploaded" });
-    //    }
-
-    const displayPicture = req.files?.displayPicture;
-    if (!displayPicture) {
+    const file = req.file; // multer puts single file here
+    if (!file) {
       return res.status(400).json({
         success: false,
         message: "No display picture provided",
       });
     }
-    
-    //@ts-ignore
+
+    //@ts-ignore → coming from auth middleware
     const userId = req.user?.id;
     if (!userId) {
       return res.status(401).json({
@@ -152,14 +204,15 @@ export const updateDisplayPicture = async (req: Request, res: Response) => {
       });
     }
 
+    // upload to Cloudinary
     const image = await uploadImageToCloudinary(
-        //@ts-ignore
-      displayPicture,
+      file.path,
       process.env.FOLDER_NAME as string,
       1000,
       1000
     );
 
+    // update user profile with new image
     const updatedProfile = await UserModel.findByIdAndUpdate(
       userId,
       { image: image.secure_url },
@@ -172,15 +225,15 @@ export const updateDisplayPicture = async (req: Request, res: Response) => {
       data: updatedProfile,
     });
   } catch (error: any) {
+    console.error("Error updating display picture:", error);
     return res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Server error",
     });
   }
 };
 
-// Get all cources
-// Extend Request type to include `user`
+
 interface CustomRequest extends Request {
   user?: {
     id: string;
