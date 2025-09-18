@@ -3,8 +3,13 @@ import z from "zod";
 import { ProfileModel } from "../models/Profile";
 import { UserModel } from "../models/User";
 import { uploadImageToCloudinary } from "../utils/ImageUploader";
+import path from "path";
 
-export const updateProfile = async(req: Request , res : Response) => {
+interface AuthRequest extends Request {
+  user?: { id: string };
+}
+
+export const updateProfile = async(req: AuthRequest , res : Response) => {
     try{
         // Get Data
         const ProfileInputSchema = z.object({
@@ -17,24 +22,26 @@ export const updateProfile = async(req: Request , res : Response) => {
         const { dateOfBirth , gender , about , contactNumber } = ProfileInputSchema.parse(req.body);
 
         // Get User Id
-        const userId = req.body.id;
+        const userId = req.user?.id;
 
         // Find Profile
         const userDeatils = await UserModel.findById(userId);
 
         const ProfileId = userDeatils?.additionalDetals;
 
-        const ProfileDetails = await ProfileModel.findById(ProfileId);
+        // const ProfileDetails = await ProfileModel.findById(ProfileId);
+        // console.log(ProfileDetails);
 
         // Update
         const updatedProfile = await ProfileModel.findByIdAndUpdate(ProfileId , {
-            dateOfBirth : dateOfBirth,
-            gender  : gender,
-            about : about , 
-            contactNumber : contactNumber
+            dateOfBirth,
+            gender,
+            about , 
+            contactNumber
         } , {
             new : true
         })
+        console.log(updatedProfile);
 
         // Return Response
         return res.status(200).json({
@@ -51,6 +58,11 @@ export const updateProfile = async(req: Request , res : Response) => {
         })
     }
 }
+
+
+
+
+
 
 export const deleteProfile = async(req : Request , res : Response) => {
     try{
@@ -90,33 +102,76 @@ export const deleteProfile = async(req : Request , res : Response) => {
     }
 }
 
-export const getAllUserDetais = async (req : Request , res : Response) => {
-    try{
-        // fetch id
-        //@ts-ignore
-        const userId = req.user.id;
+// export const getAllUserDetails = async (req : Request , res : Response) => {
+//     try{
+//         // fetch id
+//         //@ts-ignore
+//         const userId = req.user.id;
 
-        // Get Details
-        const userDetails = await UserModel.findById({id : userId}).populate("additionalDetails").exec();
+//         // Get Details
+//         const userDetails = await UserModel.findById(userId).populate("additionalDetails").exec();
 
-        // Response
-        return res.status(200).json({
-            success : true,
-            message : "All DEtails Fetched Successfully",
-            data : userDetails
-        })
-    }
-    catch(error){
-        console.log(error);
-        return res.status(500).json({
-            success : false,
-            message : "Something wrong Happened while Getting All_User Details"
-        })
-    }
-}
+//         // Response
+//         return res.status(200).json({
+//             success : true,
+//             message : "All DEtails Fetched Successfully",
+//             data : userDetails
+//         })
+//     }
+//     catch(error){
+//         console.log(error);
+//         return res.status(500).json({
+//             success : false,
+//             message : "Something wrong Happened while Getting All_User Details"
+//         })
+//     }
+// }
 
 // update Display Picture
+
+interface AuthRequest extends Request {
+  user?: { id: string };
+}
+
+export const getAllUserDetails = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized: user not found",
+      });
+    }
+
+    const userDetails = await UserModel.findById(userId)
+      .populate("additionalDetals") // make sure this matches your schema field
+      .exec();
+
+    if (!userDetails) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "All details fetched successfully",
+      data: userDetails,
+    });
+  } catch (error: any) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while getting user details",
+    });
+  }
+};
+
+
 // Extend Express Request to include `files` and `user`
+
+
 interface CustomRequest extends Request {
   files?: {
     displayPicture?: any; // can be Express.Multer.File if using Multer
@@ -185,17 +240,70 @@ interface CustomRequest extends Request {
 
 
 
-export const updateDisplayPicture = async (req: Request, res: Response) => {
+// export const updateDisplayPicture = async (req: Request, res: Response) => {
+//   try {
+//     const file = req.file; // multer puts single file here
+//     if (!file) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "No display picture provided",
+//       });
+//     }
+
+//     //@ts-ignore → coming from auth middleware
+//     const userId = req.user?.id;
+//     if (!userId) {
+//       return res.status(401).json({
+//         success: false,
+//         message: "Unauthorized: user not found",
+//       });
+//     }
+
+//     // upload to Cloudinary
+//     const image = await uploadImageToCloudinary(
+//       file.path,
+//       process.env.FOLDER_NAME as string,
+//       1000,
+//       1000
+//     );
+
+//     // update user profile with new image
+//     const updatedProfile = await UserModel.findByIdAndUpdate(
+//       userId,
+//       { image: image.secure_url },
+//       { new: true }
+//     );
+
+//     return res.json({
+//       success: true,
+//       message: "Image updated successfully",
+//       data: updatedProfile,
+//     });
+//   } catch (error: any) {
+//     console.error("Error updating display picture:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message || "Server error",
+//     });
+//   }
+// };
+
+
+interface MulterRequest extends Request {
+  file?: Express.Multer.File;
+  user?: { id: string }; // if you attach user via auth middleware
+}
+
+export const updateDisplayPicture = async (req: MulterRequest, res: Response) => {
   try {
-    const file = req.file; // multer puts single file here
-    if (!file) {
+    const displayPicture = req.file;
+    if (!displayPicture) {
       return res.status(400).json({
         success: false,
         message: "No display picture provided",
       });
     }
 
-    //@ts-ignore → coming from auth middleware
     const userId = req.user?.id;
     if (!userId) {
       return res.status(401).json({
@@ -204,15 +312,13 @@ export const updateDisplayPicture = async (req: Request, res: Response) => {
       });
     }
 
-    // upload to Cloudinary
     const image = await uploadImageToCloudinary(
-      file.path,
+      displayPicture.path as any, // ✅ use path
       process.env.FOLDER_NAME as string,
       1000,
       1000
     );
 
-    // update user profile with new image
     const updatedProfile = await UserModel.findByIdAndUpdate(
       userId,
       { image: image.secure_url },
@@ -225,10 +331,9 @@ export const updateDisplayPicture = async (req: Request, res: Response) => {
       data: updatedProfile,
     });
   } catch (error: any) {
-    console.error("Error updating display picture:", error);
     return res.status(500).json({
       success: false,
-      message: error.message || "Server error",
+      message: error.message,
     });
   }
 };

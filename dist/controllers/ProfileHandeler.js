@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEnrolledCourses = exports.updateDisplayPicture = exports.getAllUserDetais = exports.deleteProfile = exports.updateProfile = void 0;
+exports.getEnrolledCourses = exports.updateDisplayPicture = exports.getAllUserDetails = exports.deleteProfile = exports.updateProfile = void 0;
 const zod_1 = __importDefault(require("zod"));
 const Profile_1 = require("../models/Profile");
 const User_1 = require("../models/User");
 const ImageUploader_1 = require("../utils/ImageUploader");
 const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
         // Get Data
         const ProfileInputSchema = zod_1.default.object({
@@ -28,20 +29,22 @@ const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
         const { dateOfBirth, gender, about, contactNumber } = ProfileInputSchema.parse(req.body);
         // Get User Id
-        const userId = req.body.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         // Find Profile
         const userDeatils = yield User_1.UserModel.findById(userId);
         const ProfileId = userDeatils === null || userDeatils === void 0 ? void 0 : userDeatils.additionalDetals;
-        const ProfileDetails = yield Profile_1.ProfileModel.findById(ProfileId);
+        // const ProfileDetails = await ProfileModel.findById(ProfileId);
+        // console.log(ProfileDetails);
         // Update
         const updatedProfile = yield Profile_1.ProfileModel.findByIdAndUpdate(ProfileId, {
-            dateOfBirth: dateOfBirth,
-            gender: gender,
-            about: about,
-            contactNumber: contactNumber
+            dateOfBirth,
+            gender,
+            about,
+            contactNumber
         }, {
             new: true
         });
+        console.log(updatedProfile);
         // Return Response
         return res.status(200).json({
             success: true,
@@ -90,50 +93,59 @@ const deleteProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteProfile = deleteProfile;
-const getAllUserDetais = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllUserDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        // fetch id
-        //@ts-ignore
-        const userId = req.user.id;
-        // Get Details
-        const userDetails = yield User_1.UserModel.findById({ id: userId }).populate("additionalDetails").exec();
-        // Response
-        return res.status(200).json({
-            success: true,
-            message: "All DEtails Fetched Successfully",
-            data: userDetails
-        });
-    }
-    catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: "Something wrong Happened while Getting All_User Details"
-        });
-    }
-});
-exports.getAllUserDetais = getAllUserDetais;
-const updateDisplayPicture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
-    try {
-        const displayPicture = (_a = req.files) === null || _a === void 0 ? void 0 : _a.displayPicture;
-        if (!displayPicture) {
-            return res.status(400).json({
-                success: false,
-                message: "No display picture provided",
-            });
-        }
-        //@ts-ignore
-        const userId = (_b = req.user) === null || _b === void 0 ? void 0 : _b.id;
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
         if (!userId) {
             return res.status(401).json({
                 success: false,
                 message: "Unauthorized: user not found",
             });
         }
-        const image = yield (0, ImageUploader_1.uploadImageToCloudinary)(
-        //@ts-ignore
-        displayPicture, process.env.FOLDER_NAME, 1000, 1000);
+        const userDetails = yield User_1.UserModel.findById(userId)
+            .populate("additionalDetals") // make sure this matches your schema field
+            .exec();
+        if (!userDetails) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            message: "All details fetched successfully",
+            data: userDetails,
+        });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong while getting user details",
+        });
+    }
+});
+exports.getAllUserDetails = getAllUserDetails;
+const updateDisplayPicture = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const displayPicture = req.file;
+        if (!displayPicture) {
+            return res.status(400).json({
+                success: false,
+                message: "No display picture provided",
+            });
+        }
+        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized: user not found",
+            });
+        }
+        const image = yield (0, ImageUploader_1.uploadImageToCloudinary)(displayPicture.path, // ✅ use path
+        process.env.FOLDER_NAME, 1000, 1000);
         const updatedProfile = yield User_1.UserModel.findByIdAndUpdate(userId, { image: image.secure_url }, { new: true });
         return res.json({
             success: true,
