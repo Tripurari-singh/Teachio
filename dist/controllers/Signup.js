@@ -25,19 +25,19 @@ const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //Zod Validation
         const SignupSchema = zod_1.default.object({
-            firstName: zod_1.default.string().min(3).max(15),
-            lastName: zod_1.default.string().min(3).max(15),
-            email: zod_1.default.email().min(3).max(15),
+            FirstName: zod_1.default.string().min(3).max(15),
+            LastName: zod_1.default.string().min(3).max(15),
+            email: zod_1.default.string().email().min(3).max(25),
             password: zod_1.default.string().min(3).max(15),
-            confirmPasswod: zod_1.default.string().min(3).max(15),
+            confirmPassword: zod_1.default.string().min(3).max(15),
             accountType: zod_1.default.string().min(3).max(15),
             contactNumber: zod_1.default.number(),
             otp: zod_1.default.string(),
         });
         // Input
-        const { firstName, lastName, email, password, confirmPasswod, accountType, contactNumber, otp } = SignupSchema.parse(req.body);
+        const { FirstName, LastName, email, password, confirmPassword, accountType, contactNumber, otp } = SignupSchema.parse(req.body);
         // Confirm Password
-        if (password !== confirmPasswod) {
+        if (password !== confirmPassword) {
             return res.status(403).json({
                 success: false,
                 message: "Password and Confirmed_Password Should be Same",
@@ -51,7 +51,7 @@ const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 message: "User Already Exist",
             });
         }
-        // Findin Most Recent otp stored for the user
+        // Find in Most Recent otp stored for the user
         const recentOtp = yield Otp_1.OtpModel.findOne({ otp }).sort({ createdAt: -1 }).limit(1);
         console.log(recentOtp);
         if (!recentOtp) {
@@ -78,14 +78,14 @@ const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             contactNumber: null,
         });
         const UserDetails = yield User_1.UserModel.create({
-            firstName,
-            lastName,
+            FirstName,
+            LastName,
             email,
             password: HashedPassword,
             accountType,
             contactNumber,
             additionalDetals: ProfileDetails._id,
-            image: `https://api.dicebear.com/9.x/initials/svg?seed=${firstName} ${lastName}`,
+            image: `https://api.dicebear.com/9.x/initials/svg?seed=${FirstName} ${LastName}`,
         });
         return res.status(200).json({
             success: true,
@@ -97,7 +97,7 @@ const Signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(error);
         res.status(500).json({
             success: false,
-            message: "Sign Up Failed.... Try gain",
+            message: "Sign Up Failed.... Try again",
         });
     }
 });

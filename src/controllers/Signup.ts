@@ -1,7 +1,7 @@
 import { UserModel } from "../models/User";
 import { OtpModel } from "../models/Otp";
 import { Request , Response} from "express";
-import z, { success } from "zod";
+import z from "zod";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import { ProfileModel } from "../models/Profile";
@@ -15,21 +15,21 @@ export const Signup = async (req : Request , res  : Response) => {
 
         //Zod Validation
         const SignupSchema = z.object({
-            firstName : z.string().min(3).max(15),
-            lastName : z.string().min(3).max(15),
-            email : z.email().min(3).max(15),
+            FirstName : z.string().min(3).max(15),
+            LastName : z.string().min(3).max(15),
+            email : z.string().email().min(3).max(25),
             password : z.string().min(3).max(15),
-            confirmPasswod : z.string().min(3).max(15),
+            confirmPassword : z.string().min(3).max(15),
             accountType : z.string().min(3).max(15),
             contactNumber : z.number(),
             otp : z.string(),
         })
         
         // Input
-        const {firstName, lastName, email, password, confirmPasswod, accountType,contactNumber, otp} = SignupSchema.parse(req.body);    
+        const {FirstName, LastName, email, password, confirmPassword, accountType,contactNumber , otp} = SignupSchema.parse(req.body);    
         
         // Confirm Password
-        if(password !== confirmPasswod){
+        if(password !== confirmPassword){
             return res.status(403).json({
                 success : false,
                 message : "Password and Confirmed_Password Should be Same",
@@ -46,7 +46,7 @@ export const Signup = async (req : Request , res  : Response) => {
             })
         }
 
-        // Findin Most Recent otp stored for the user
+        // Find in Most Recent otp stored for the user
         const recentOtp = await OtpModel.findOne({otp}).sort({createdAt : -1}).limit(1);
         console.log(recentOtp);
 
@@ -78,14 +78,14 @@ export const Signup = async (req : Request , res  : Response) => {
         })
 
         const UserDetails = await UserModel.create({
-            firstName, 
-            lastName, 
+            FirstName, 
+            LastName, 
             email, 
             password : HashedPassword, 
             accountType,
             contactNumber,
             additionalDetals : ProfileDetails._id,
-            image : `https://api.dicebear.com/9.x/initials/svg?seed=${firstName} ${lastName}`,
+            image : `https://api.dicebear.com/9.x/initials/svg?seed=${FirstName} ${LastName}`,
         })
 
         return res.status(200).json({
@@ -100,7 +100,7 @@ export const Signup = async (req : Request , res  : Response) => {
         console.log(error);
         res.status(500).json({
             success : false,
-            message : "Sign Up Failed.... Try gain",
+            message : "Sign Up Failed.... Try again",
         })
     }
 }

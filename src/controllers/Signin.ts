@@ -11,7 +11,7 @@ export const SignIn = async (req : Request , res : Response) => {
     try{
         // Validation
     const SigninSchema = z.object({
-        email : z.email().min(3).max(15),
+        email : z.string().email().min(3).max(25),
         password : z.string().min(3).max(15),
     })
 

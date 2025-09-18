@@ -23,7 +23,7 @@ const SignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Validation
         const SigninSchema = zod_1.default.object({
-            email: zod_1.default.email().min(3).max(15),
+            email: zod_1.default.string().email().min(3).max(25),
             password: zod_1.default.string().min(3).max(15),
         });
         // Get Data
