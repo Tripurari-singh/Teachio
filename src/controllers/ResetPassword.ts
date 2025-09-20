@@ -7,16 +7,17 @@ interface ResetPasswordBody {
     email : string
 }
 
-export const resetPasswordExpires = async (req : Request<{}, {}, ResetPasswordBody> , res : Response) => {
+export const resetPasswordToken = async (req : Request<{}, {}, ResetPasswordBody> , res : Response) => {
     try {
             // Get email
     const email = req.body?.email;
 
     // Email validation
     const user = await UserModel.findOne({email})
+    console.log(user);
 
     // Generate Token
-    const token = crypto.randomUUID;
+    const token = crypto.randomUUID();
 
     // Update UserModel by adding token and expiration Time
     const updatedDetails = await UserModel.findOneAndUpdate({email : email} , {
@@ -52,21 +53,31 @@ export const resetPasswordExpires = async (req : Request<{}, {}, ResetPasswordBo
 
 
 //Reset Password
-export const resetPassword = async (req : Request , res : Response) => {
+ export const resetPassword = async (req : Request , res : Response) => {
     try {
        // Data Fetch
-       const {password , confirmPasswod , token} = req.body || req.header("Authorisation")?.replace("Bearer" , "") || req.cookies.token;
+       //    const {password , confirmPasswod , token} = req.body || req.header("Authorisation")?.replace("Bearer" , "") || req.cookies.token;
+
+
+    const { password, confirmPassword, token } = req.body;
+
+    const headerToken = req.header("Authorization")?.replace("Bearer ", "");
+    
+    const cookieToken = req.cookies?.token;
+
+    const finalToken = token || headerToken || cookieToken;
 
        // Validation
-       if(password != confirmPasswod){
+       if(password !== confirmPassword){
           return res.status(401).json({
             success : false,
-            message : "password and confirmPassword should not be same..",
+            message : "password and confirmPassword should be same..",
           })
        }
 
        // Get userDeatils from UserModel using token
-       const UserDetails = await UserModel.findOne({token : token});
+       const UserDetails = await UserModel.findOne({token : finalToken});
+       console.log(finalToken);
 
        // if No UserDetails present that means Invalid Token
        if(!UserDetails){
@@ -75,18 +86,19 @@ export const resetPassword = async (req : Request , res : Response) => {
             message : "User Not Found / Invalid Token",
         })
        }
+       console.log(UserDetails);
 
        // Token Time Check
        if(UserDetails.resetPasswordExpires.getTime() < Date.now()){
         return res.status(403).json({
             success : false,
-            message : "TokenHas been Expired"
+            message : "Token Has been Expired"
         })
        }
 
        // Hash The Pssword and Update the Password in UserModel
        const HashedPassword = await bcrypt.hash(password , 10);
-       await UserModel.findOneAndUpdate({token : token} , {
+       await UserModel.findOneAndUpdate({token : finalToken} , {
         password : HashedPassword
        } , {
         // It actually Updated The Password in The Database
@@ -107,3 +119,5 @@ export const resetPassword = async (req : Request , res : Response) => {
         })
     }
 }
+
+

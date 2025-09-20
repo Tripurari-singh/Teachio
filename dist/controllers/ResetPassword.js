@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetPassword = exports.resetPasswordExpires = void 0;
+exports.resetPassword = exports.resetPasswordToken = void 0;
 const User_1 = require("../models/User");
 const MailSender_1 = require("../utils/MailSender");
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const resetPasswordExpires = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const resetPasswordToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
         // Get email
@@ -24,7 +24,7 @@ const resetPasswordExpires = (req, res) => __awaiter(void 0, void 0, void 0, fun
         // Email validation
         const user = yield User_1.UserModel.findOne({ email });
         // Generate Token
-        const token = crypto.randomUUID;
+        const token = crypto.randomUUID();
         // Update UserModel by adding token and expiration Time
         const updatedDetails = yield User_1.UserModel.findOneAndUpdate({ email: email }, {
             token: token,
@@ -52,22 +52,27 @@ const resetPasswordExpires = (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
     }
 });
-exports.resetPasswordExpires = resetPasswordExpires;
+exports.resetPasswordToken = resetPasswordToken;
 //Reset Password
 const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _a, _b;
     try {
         // Data Fetch
-        const { password, confirmPasswod, token } = req.body || ((_a = req.header("Authorisation")) === null || _a === void 0 ? void 0 : _a.replace("Bearer", "")) || req.cookies.token;
+        //    const {password , confirmPasswod , token} = req.body || req.header("Authorisation")?.replace("Bearer" , "") || req.cookies.token;
+        const { password, confirmPassword, token } = req.body;
+        const headerToken = (_a = req.header("Authorization")) === null || _a === void 0 ? void 0 : _a.replace("Bearer ", "");
+        const cookieToken = (_b = req.cookies) === null || _b === void 0 ? void 0 : _b.token;
+        const finalToken = token || headerToken || cookieToken;
         // Validation
-        if (password != confirmPasswod) {
+        if (password !== confirmPassword) {
             return res.status(401).json({
                 success: false,
-                message: "password and confirmPassword should not be same..",
+                message: "password and confirmPassword should be same..",
             });
         }
         // Get userDeatils from UserModel using token
-        const UserDetails = yield User_1.UserModel.findOne({ token: token });
+        const UserDetails = yield User_1.UserModel.findOne({ token: finalToken });
+        console.log(finalToken);
         // if No UserDetails present that means Invalid Token
         if (!UserDetails) {
             return res.status(402).json({
@@ -75,16 +80,17 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 message: "User Not Found / Invalid Token",
             });
         }
+        console.log(UserDetails);
         // Token Time Check
         if (UserDetails.resetPasswordExpires.getTime() < Date.now()) {
             return res.status(403).json({
                 success: false,
-                message: "TokenHas been Expired"
+                message: "Token Has been Expired"
             });
         }
         // Hash The Pssword and Update the Password in UserModel
         const HashedPassword = yield bcrypt_1.default.hash(password, 10);
-        yield User_1.UserModel.findOneAndUpdate({ token: token }, {
+        yield User_1.UserModel.findOneAndUpdate({ token: finalToken }, {
             password: HashedPassword
         }, {
             // It actually Updated The Password in The Database
