@@ -23,6 +23,7 @@ const resetPasswordToken = (req, res) => __awaiter(void 0, void 0, void 0, funct
         const email = (_a = req.body) === null || _a === void 0 ? void 0 : _a.email;
         // Email validation
         const user = yield User_1.UserModel.findOne({ email });
+        console.log(user);
         // Generate Token
         const token = crypto.randomUUID();
         // Update UserModel by adding token and expiration Time
