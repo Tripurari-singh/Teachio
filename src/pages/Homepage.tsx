@@ -56,7 +56,7 @@ export const Home = () => {
 
             {/* Image Section */}
             <div>
-                <img src="./assets"></img>
+                
             </div>
             {/* section 3 */}
 
