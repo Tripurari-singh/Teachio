@@ -21,7 +21,7 @@
 
 interface ButtonInterface {
     label: string;
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick? : (event: React.MouseEvent<HTMLButtonElement>) => void;
     variant: "yellow" | "dark"; // optional, default to yellow
 }
 

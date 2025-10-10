@@ -71,7 +71,18 @@ export const Home = () => {
 
             {/* Block Component & Code Component */}
             <div>
-                <Block/>
+                <Block
+                    HeadingLabel_1="Level up your"
+                    HeadingLabel_2="coding skills!"
+                    HeadingLabel_3="learn to code anytime"
+                    SubHeadingLine_1="Learn from industry experts, build real-world projects,"
+                    SubHeadingLine_2="and gain the confidence to create anything you imagine."
+                    SubHeadingLine_3="Start your coding journey today."
+                    Button_1_Label="Get Started"
+                    Button_2_Label="Learn More"
+                    Button_1_varient="yellow"
+                    Button_2_varient="dark"
+                 />
             </div>
 
 
