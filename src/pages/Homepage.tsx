@@ -2,6 +2,8 @@ import { FaArrowCircleRight } from "react-icons/fa"
 import { Button } from "../components/Button"
 import Myimage from "../assets/Image.png"
 import { Block } from "../components/BlockComponent"
+import Image1 from "../assets/CodeImg_1.png"
+
 
 export const Home = () => {
     return(
@@ -70,7 +72,7 @@ export const Home = () => {
 
 
             {/* Block Component & Code Component */}
-            <div>
+            <div className="flex m-10 p-10">
                 <Block
                     HeadingLabel_1="Level up your"
                     HeadingLabel_2="coding skills!"
