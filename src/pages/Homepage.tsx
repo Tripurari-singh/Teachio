@@ -1,6 +1,7 @@
 import { FaArrowCircleRight } from "react-icons/fa"
 import { Button } from "../components/Button"
 import Myimage from "../assets/Image.png"
+import { Block } from "../components/BlockComponent"
 
 export const Home = () => {
     return(
@@ -68,7 +69,11 @@ export const Home = () => {
         </div>
 
 
-        
+            {/* Block Component & Code Component */}
+            <div>
+                <Block/>
+            </div>
+
 
 
                 
