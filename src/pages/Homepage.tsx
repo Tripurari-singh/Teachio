@@ -1,8 +1,8 @@
 import { FaArrowCircleRight } from "react-icons/fa"
 import { Button } from "../components/Button"
-import Myimage from "../assets/Image.png"
 import { Block } from "../components/BlockComponent"
-import Image1 from "../assets/CodeImg_1.png"
+import Myimage from  "../assets/Image.png"
+
 
 
 export const Home = () => {
@@ -76,7 +76,7 @@ export const Home = () => {
                 <Block
                     HeadingLabel_1="Level up your"
                     HeadingLabel_2="coding skills!"
-                    HeadingLabel_3="learn to code anytime"
+                    HeadingLabel_3="Learn to code anytime"
                     SubHeadingLine_1="Learn from industry experts, build real-world projects,"
                     SubHeadingLine_2="and gain the confidence to create anything you imagine."
                     SubHeadingLine_3="Start your coding journey today."
