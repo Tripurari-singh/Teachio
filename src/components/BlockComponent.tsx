@@ -62,6 +62,7 @@ HeadingLabel_1,
                     <Button
                      label={Button_1_Label}
                      variant={Button_1_varient as "yellow" | "dark"}
+                     onClick={() => {}}
                      />
 
                 </div>
@@ -69,6 +70,7 @@ HeadingLabel_1,
                     <Button
                     label={Button_2_Label}
                     variant={Button_2_varient as "yellow" | "dark"}
+                    onClick={() => {}}
                     />
 
                 </div>

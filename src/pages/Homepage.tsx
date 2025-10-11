@@ -168,13 +168,13 @@ export const Home = () => {
 
                {/* Features & FeatureImage Components */}
                <div className="">
-                <div className="flex flex-col">
-                    {/* <FeatureComponent
+                <div className="flex flex-col gap-1">
+                    <FeatureComponent
                         Heading_1="Expert Teachers"
                         Heading_2="Learn from the best minds in the industry."
                         Icon={<BsPersonAdd />}
-                    /> */}
-                    {/* <FeatureComponent
+                    />
+                    <FeatureComponent
                         Heading_1="Certified Learning"
                         Heading_2="Get recognized certifications to boost your career."
                         Icon={<AiFillSafetyCertificate />}
@@ -198,7 +198,7 @@ export const Home = () => {
                         Heading_1="Lifetime Access"
                         Heading_2="Access courses forever and revisit anytime."
                         Icon={<MdAccessAlarm />}
-                    /> */}
+                    />
                     </div>                  
                     
                     {/* <FeatureImageComponent/> */}
