@@ -81,8 +81,12 @@ function CodeBlock({ cursor, className, ...props }: CodeBlockProps) {
   const { code } = useCode();
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
+  // New state To Restart Animation
+  const [key , setKey] = React.useState(0);
+
   return (
     <CodeBlockPrimitive
+      key={key}
       ref={scrollRef}
       theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
       scrollContainerRef={scrollRef}
@@ -95,6 +99,10 @@ function CodeBlock({ cursor, className, ...props }: CodeBlockProps) {
       )}
       code={code}
       {...props}
+      onDone={() => {
+        setTimeout(() => setKey(prev => prev + 1), 100) // restart after 1 second
+        }}
+
     />
   );
 }

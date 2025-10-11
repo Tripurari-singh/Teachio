@@ -7,7 +7,7 @@ import {
 } from '@/components/animate-ui/components/animate/code';
 // import ReactIcon from '@/components/icons/react-icon';
 import { File } from 'lucide-react';
-import ReactIcon from "@/components/ReactIconTemp";
+import ReactIcon from "@/components/Icons/CodeIcon";
 
 interface CodeDemoProps {
   duration: number;

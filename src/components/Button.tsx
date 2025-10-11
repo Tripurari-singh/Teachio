@@ -1,8 +1,8 @@
 
 interface ButtonInterface {
-    label: string;
-    onClick? : (event: React.MouseEvent<HTMLButtonElement>) => void;
-    variant: "yellow" | "dark"; 
+  label: string
+  onClick: () => void
+  variant: "yellow" | "dark"
 }
 
 export function Button({ label, onClick, variant }: ButtonInterface) {

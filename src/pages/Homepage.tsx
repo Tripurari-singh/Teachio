@@ -5,8 +5,9 @@ import { Block } from "../components/BlockComponent"
 //@ts-ignore
 import Myimage from "../assets/Image.png"
 import { CodeDemo } from "@/components/CodeAnimationShadcn"
-import { FireworksBackground } from "@/components/ui/shadcn-io/fireworks-background"
-import { StyledButton } from "@/components/styledButton"
+import { HighlightedText } from "@/components/HighlightedTextComponent"
+import { ArrowButton } from "@/components/ArrowButtonComponent"
+import { SubHeading } from "@/components/SubHeadingComponent"
 
 export const Home = () => {
     return (
@@ -60,11 +61,7 @@ export const Home = () => {
                     </div>
                 </div>
 
-                {/* section 2 */}
-
                 {/* Image Section */}
-
-                {/* section 3 */}
                 <div className="flex flex-col items-center mt-2 pt-2 border-r-yellow-200 shadow-amber-100">
                     <div className="image-container shadow-2xl  rounded-2xl">
                         <img
@@ -133,8 +130,18 @@ export const Home = () => {
 
                 </div>
             </div> 
+            
 
-            <div className="bg-slate-500">
+
+
+            {/* Section - 2 */}
+            <div className="bg-gradient-to-b from-black via-gray-500 to-white h-64 w-full flex flex-row">
+               <div>
+                 <HighlightedText HeadingLabel_1="Get the skills you need"  HeadingLabel_2=" For a Job" HeadingLabel_3="that is in Demand" />
+               </div>
+               <div>
+                  <SubHeading SubHeadingLine_1="" />
+               </div>
             </div>               
             
         </>
