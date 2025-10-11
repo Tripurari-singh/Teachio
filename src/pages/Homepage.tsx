@@ -6,20 +6,12 @@ import { Block } from "../components/BlockComponent"
 import Myimage from "../assets/Image.png"
 import { CodeDemo } from "@/components/CodeAnimationShadcn"
 import { FireworksBackground } from "@/components/ui/shadcn-io/fireworks-background"
+import { StyledButton } from "@/components/styledButton"
 
 export const Home = () => {
     return (
         <>
            <div className="relative h-full w-full">
-                {/* FireWorkd Background */}
-                <div className="absolute inset-0 z-0">
-                    <FireworksBackground
-                    population={0.1}
-                    color={["#ff0000", "#00ff00", "#0000ff", "#ffff00"]}
-                    fireworkSpeed={{ min: 4, max: 8 }}
-                    particleSize={{ min: 2, max: 6 }}
-                    />
-                </div>
                 <div className="relative z-10">
                     {/* All your other components go here, completely unchanged */}
                 <div>
@@ -140,7 +132,10 @@ export const Home = () => {
              </div>
 
                 </div>
-            </div>                
+            </div> 
+
+            <div className="bg-slate-500">
+            </div>               
             
         </>
     )
