@@ -27,7 +27,7 @@ function Code({ className, code, ...props }: CodeProps) {
     <CodeProvider value={{ code }}>
       <div
         className={cn(
-          'relative flex flex-col overflow-hidden border bg-accent/50 rounded-lg',
+          'relative flex flex-col overflow-hidden  bg-accent/50 rounded-lg',
           className,
         )}
         {...props}
@@ -53,7 +53,7 @@ function CodeHeader({
   return (
     <div
       className={cn(
-        'bg-accent shrink-0 gap-x-2 border-b border-border/75 dark:border-border/50 text-sm flex text-muted-foreground items-center px-4 w-full h-10',
+        'bg-accent shrink-0 gap-x-2  text-sm flex text-muted-foreground items-center px-4 w-full h-10',
         className,
       )}
       {...props}

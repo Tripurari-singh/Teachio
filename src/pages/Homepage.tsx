@@ -8,6 +8,20 @@ import { CodeDemo } from "@/components/CodeAnimationShadcn"
 import { HighlightedText } from "@/components/HighlightedTextComponent"
 import { ArrowButton } from "@/components/ArrowButtonComponent"
 import { SubHeading } from "@/components/SubHeadingComponent"
+import { FeatureImageComponent } from "@/components/FeatureImageComponent"
+import { FeatureComponent } from "@/components/FeaturesComponent"
+
+import { BsPersonAdd } from "react-icons/bs";
+import { AiFillSafetyCertificate } from "react-icons/ai";
+import { MdOutlineSchedule } from "react-icons/md";
+import { FaCode } from "react-icons/fa";
+import { RiUserCommunityFill } from "react-icons/ri";
+import { MdAccessAlarm } from "react-icons/md";
+
+
+
+
+
 
 export const Home = () => {
     return (
@@ -135,18 +149,75 @@ export const Home = () => {
 
 
             {/* Section - 2 */}
-            <div className="bg-gradient-to-b from-black via-gray-500 to-white h-64 w-full flex flex-row">
-               <div>
-                 <HighlightedText HeadingLabel_1="Get the skills you need"  HeadingLabel_2=" For a Job" HeadingLabel_3="that is in Demand" />
+            <div className="bg-gradient-to-b from-black via-gray-900 to-white h-ful w-full">
+               <div className=" mt-20 w-full h-full flex flex-row ">
+                    <div className="mt-40 mr-auto ml-10 ">
+                        <HighlightedText HeadingLabel_1="Get the skills you need"  HeadingLabel_2=" For a Job" HeadingLabel_3="that is in Demand" />
+                    </div>
+                    <div className="flex flex-col m-10 mt-40 ml-20">
+                            <SubHeading
+                            SubHeadingLine_1="Learn smarter with Teachio — your gateway to expert-led online courses."
+                            SubHeadingLine_2="Master new skills at your own pace, anytime, anywhere."
+                            SubHeadingLine_3="Empower your future through learning that fits your life."
+                            />
+                            <div className="mr-150">
+                                <ArrowButton label={"Learn More"} onClick={() => {}} />
+                            </div>
+                    </div>
                </div>
-               <div>
-                  <SubHeading SubHeadingLine_1="" />
+
+               {/* Features & FeatureImage Components */}
+               <div className="">
+                <div className="flex flex-col">
+                    {/* <FeatureComponent
+                        Heading_1="Expert Teachers"
+                        Heading_2="Learn from the best minds in the industry."
+                        Icon={<BsPersonAdd />}
+                    /> */}
+                    {/* <FeatureComponent
+                        Heading_1="Certified Learning"
+                        Heading_2="Get recognized certifications to boost your career."
+                        Icon={<AiFillSafetyCertificate />}
+                    />
+                    <FeatureComponent
+                        Heading_1="Flexible Schedule"
+                        Heading_2="Learn at your own pace, anytime, anywhere."
+                        Icon={<MdOutlineSchedule />}
+                    />
+                    <FeatureComponent
+                        Heading_1="Practical Projects"
+                        Heading_2="Apply your knowledge with hands-on projects."
+                        Icon={<FaCode />}
+                    />
+                    <FeatureComponent
+                        Heading_1="Community Support"
+                        Heading_2="Join a thriving community of learners."
+                        Icon={<RiUserCommunityFill />}
+                    />
+                    <FeatureComponent
+                        Heading_1="Lifetime Access"
+                        Heading_2="Access courses forever and revisit anytime."
+                        Icon={<MdAccessAlarm />}
+                    /> */}
+                    </div>                  
+                    
+                    {/* <FeatureImageComponent/> */}
                </div>
             </div>               
             
         </>
     )
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
