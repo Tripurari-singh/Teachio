@@ -21,3 +21,7 @@ function App() {
 export default App
 // min-h-screen bg-gradient-to-r from-[#0f0f0f] via-[#1a1a1a] to-[#111827] text-gray-100
 // bg-gradient-to-b from-[#0a0f1f] via-[#0f172a] to-[#020617]
+
+
+
+
