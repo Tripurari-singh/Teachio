@@ -23,6 +23,7 @@ import { RiUserCommunityFill } from "react-icons/ri";
 import { MdAccessAlarm } from "react-icons/md";
 import { EvervaultCardDemo } from "@/components/HoverCardComponent"
 import { InfiniteMovingCardsDemo } from "@/components/InfiniteMovingCardsDemo"
+import { WobbleCardDemo } from "@/components/WobbleCardComponent"
 
 
 
@@ -232,7 +233,7 @@ export const Home = () => {
             </div> 
             {/* bg-gradient-to-b from-white via-gray-500 to-black */}
                    <div className="bg-gradient-to-b from-white via-slate-950 to-black ">
-                        <div className="flex flex-row gap-2 mt-30 mb-30 p-5">
+                        <div className="flex flex-row gap-2 mt-70 mb-30 p-5">
                             <EvervaultCardDemo
                                     Title="Development"
                                     Subtitle="Learn MERN from zero to job-ready with guided projects & mentor support."
@@ -274,7 +275,13 @@ export const Home = () => {
                                 />
                         </div>
                     </div>    
+                    
+                    {/* WobbleCard Section */}
+                    <div className="mt-50">
+                        <WobbleCardDemo/>
+                    </div>
 
+                    {/* Reviews Section */}
                     <div className="bg-black mt-15">
                         <div className="flex items-center justify-center">
                             <HighlightedText
