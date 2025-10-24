@@ -19,6 +19,7 @@ import { MdOutlineSchedule } from "react-icons/md";
 import { FaCode } from "react-icons/fa";
 import { RiUserCommunityFill } from "react-icons/ri";
 import { MdAccessAlarm } from "react-icons/md";
+import { EvervaultCardDemo } from "@/components/HoverCardComponent"
 
 
 
@@ -151,7 +152,7 @@ export const Home = () => {
 
 
             {/* Section - 2 */}
-            <div className="bg-gradient-to-b from-black via-gray-900 to-white h-ful w-full ">
+            <div className="bg-gradient-to-b from-black via-gray-500 to-white h-ful w-full ">
                <div className=" mt-20 w-full h-full flex flex-row ml-25">
                     <div className="mt-40 mr-auto ml-10 ">
                         <HighlightedText HeadingLabel_1="Get the skills you need"  HeadingLabel_2=" For a Job" HeadingLabel_3="that is in Demand" />
@@ -204,13 +205,35 @@ export const Home = () => {
                     </div>                  
                     
                     {/* <FeatureImageComponent/> */}
-                    <div className=" rounded-full flex items-center justify-center">
-                        <div className="ml-20 mr-5 bg-red-500 flex items-center justify-center rounded-2xl ">
+                    
+                        <div className="ml-20 mr-5 flex items-center justify-stretch rounded-2xl ">
                             <img className="shadow-slate-700 shadow-2xl bg-gradient-to-br" src={CodeImage}></img>
+                            {/* Green Block OverLap Component */}
+                            <div className="bg-green-900 text-white absolute flex flex-row items-center px-10 py-10
+                            left-[50%] translate-x-30 translate-y-60 " >
+                                <div className="flex flex-row items-center gap-5 px-4">
+                                    <p className="text-3xl font-bold">10</p>
+                                    <p className="text-green-400 text-sm"> Years Of Experience</p>
+                                </div>
+                                <div className="flex flex-row items-center gap-5 px-4">
+                                    <p className="text-3xl font-bold pr-5">|</p>
+                                    <p className="text-3xl font-bold">250</p>
+                                    <p className="text-green-400 text-sm">Types Of Courses</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    
+
+                    
                </div>
-            </div>               
+            </div> 
+                   <div className="bg-gradient-to-b from-white via-gray-500 to-black">
+                        <div className="flex flex-row gap-2 mt-5 p-5">
+                            <EvervaultCardDemo/>
+                            <EvervaultCardDemo/>
+                            <EvervaultCardDemo/>
+                        </div>
+                    </div>              
             
         </>
     )
