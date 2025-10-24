@@ -4,6 +4,8 @@ import { Button } from "../components/Button"
 import { Block } from "../components/BlockComponent"
 //@ts-ignore
 import Myimage from "../assets/Image.png"
+//@ts-ignore
+import CodeImage from "../assets/Code.png"
 import { CodeDemo } from "@/components/CodeAnimationShadcn"
 import { HighlightedText } from "@/components/HighlightedTextComponent"
 import { ArrowButton } from "@/components/ArrowButtonComponent"
@@ -149,8 +151,8 @@ export const Home = () => {
 
 
             {/* Section - 2 */}
-            <div className="bg-gradient-to-b from-black via-gray-900 to-white h-ful w-full">
-               <div className=" mt-20 w-full h-full flex flex-row ">
+            <div className="bg-gradient-to-b from-black via-gray-900 to-white h-ful w-full ">
+               <div className=" mt-20 w-full h-full flex flex-row ml-25">
                     <div className="mt-40 mr-auto ml-10 ">
                         <HighlightedText HeadingLabel_1="Get the skills you need"  HeadingLabel_2=" For a Job" HeadingLabel_3="that is in Demand" />
                     </div>
@@ -167,8 +169,8 @@ export const Home = () => {
                </div>
 
                {/* Features & FeatureImage Components */}
-               <div className="">
-                <div className="flex flex-col gap-1">
+               <div className="mt-20 flex flex-row">
+                <div className=" ml-25 flex flex-col gap-5">
                     <FeatureComponent
                         Heading_1="Expert Teachers"
                         Heading_2="Learn from the best minds in the industry."
@@ -202,6 +204,11 @@ export const Home = () => {
                     </div>                  
                     
                     {/* <FeatureImageComponent/> */}
+                    <div className=" rounded-full flex items-center justify-center">
+                        <div className="ml-20 mr-5 bg-red-500 flex items-center justify-center rounded-2xl ">
+                            <img className="shadow-slate-700 shadow-2xl bg-gradient-to-br" src={CodeImage}></img>
+                        </div>
+                    </div>
                </div>
             </div>               
             
