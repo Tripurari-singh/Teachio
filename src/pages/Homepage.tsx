@@ -24,6 +24,7 @@ import { MdAccessAlarm } from "react-icons/md";
 import { EvervaultCardDemo } from "@/components/HoverCardComponent"
 import { InfiniteMovingCardsDemo } from "@/components/InfiniteMovingCardsDemo"
 import { WobbleCardDemo } from "@/components/WobbleCardComponent"
+import AnimatedWaveFooter from "@/components/FooterComponent"
 
 
 
@@ -292,7 +293,15 @@ export const Home = () => {
                         <div className="dark">
                            <InfiniteMovingCardsDemo/>    
                         </div>    
-                    </div>      
+                    </div>   
+
+                    {/* Footer    */}
+                     
+                    <div className="bg-black">
+                        <div className="">
+                          <AnimatedWaveFooter/>
+                        </div>
+                    </div>
             
         </>
     )

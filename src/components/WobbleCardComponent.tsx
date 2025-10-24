@@ -25,8 +25,8 @@ export function WobbleCardDemo() {
         </div>
         <img
           src={CodeImage_1}
-          width={500}
-          height={500}
+          width={600}
+          height={400}
           alt="linear demo image"
           className="absolute -right-4 lg:-right-[40%] grayscale filter -bottom-10 object-contain rounded-2xl"
         />
@@ -50,8 +50,8 @@ export function WobbleCardDemo() {
         </div>
         <img
           src={CodeImage_2}
-          width={500}
-          height={500}
+          width={650}
+          height={200}
           alt="linear demo image"
           className="absolute -right-10 md:-right-[40%] lg:-right-[20%] -bottom-10 object-contain rounded-2xl"
         />
