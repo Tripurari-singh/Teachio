@@ -6,6 +6,8 @@ import { Block } from "../components/BlockComponent"
 import Myimage from "../assets/Image.png"
 //@ts-ignore
 import CodeImage from "../assets/Code.png"
+//@ts-ignore
+import InstructotImage from "../assets/Instructor.png"
 import { CodeDemo } from "@/components/CodeAnimationShadcn"
 import { HighlightedText } from "@/components/HighlightedTextComponent"
 import { ArrowButton } from "@/components/ArrowButtonComponent"
@@ -80,11 +82,11 @@ export const Home = () => {
 
                 {/* Image Section */}
                 <div className="flex flex-col items-center mt-2 pt-2 border-r-yellow-200 shadow-amber-100">
-                    <div className="image-container shadow-2xl  rounded-2xl">
+                    <div className="image-container shadow-2xl ">
                         <img
                             src={Myimage}
                             alt="description"
-                            className="h-100 shadow-lg shadow-amber-50 rounded-4xl"
+                            className="h-100 shadow-2xl shadow-slate-500"
                         ></img>
                         <div></div>
                     </div>
@@ -108,7 +110,7 @@ export const Home = () => {
                 />
                 </div>
                 {/* Code Animation Component */}
-                <div className="ml-10 pl-10 p-10 shadow-slate-600 shadow-2xl rounded-4xl">
+                <div className="ml-10 pl-10 p-10 shadow-slate-600 shadow-2xl ">
                     <CodeDemo
                         duration={18000} // how long typing lasts (seconds)
                         delay={1200} // delay before typing starts
@@ -120,7 +122,7 @@ export const Home = () => {
 
 
              <div className="flex items-center justify-center m-10 rounded-b-2xl">
-                 <div className="mr-10 pr-10 p-10 shadow-slate-600 shadow-2xl rounded-4xl">
+                 <div className="mr-10 pr-10 p-10 shadow-slate-600 shadow-2xl ">
                     <CodeDemo
                         duration={18000} // how long typing lasts (seconds)
                         delay={1200} // delay before typing starts
@@ -171,7 +173,7 @@ export const Home = () => {
 
                {/* Features & FeatureImage Components */}
                <div className="mt-20 flex flex-row">
-                <div className=" ml-25 flex flex-col gap-5">
+                <div className=" ml-25 flex flex-col gap-5 m-5 p-5 rounded-2xl ">
                     <FeatureComponent
                         Heading_1="Expert Teachers"
                         Heading_2="Learn from the best minds in the industry."
@@ -227,13 +229,50 @@ export const Home = () => {
                     
                </div>
             </div> 
-                   <div className="bg-gradient-to-b from-white via-gray-500 to-black">
-                        <div className="flex flex-row gap-2 mt-5 p-5">
-                            <EvervaultCardDemo/>
-                            <EvervaultCardDemo/>
-                            <EvervaultCardDemo/>
+            {/* bg-gradient-to-b from-white via-gray-500 to-black */}
+                   <div className="bg-gradient-to-b from-white via-slate-950 to-black ">
+                        <div className="flex flex-row gap-2 mt-30 mb-30 p-5">
+                            <EvervaultCardDemo
+                                    Title="Development"
+                                    Subtitle="Learn MERN from zero to job-ready with guided projects & mentor support."
+                                    ButtonTitle="Buy Now →"
+                                    />
+
+                                    <EvervaultCardDemo
+                                    Title="DevOps"
+                                    Subtitle="AWS, Docker, CI/CD and Kubernetes — hands-on labs + interview prep."
+                                    ButtonTitle="Enroll Today →"
+                                    />
+
+                                    <EvervaultCardDemo
+                                    Title="Blockchain"
+                                    Subtitle="Master smart contracts, dApps and Web3 architecture with real-world projects"
+                                    ButtonTitle="Start Learning →"
+                                    />
+
                         </div>
-                    </div>              
+                    </div> 
+
+                    <div className="flex flex-row ">
+                       <div className="flex items-center justify-center m-10 p-10 ">
+                        {/* Image */}
+                        <img className="w-150 shadow-2xl shadow-slate-600" src={InstructotImage}></img>
+                       </div>   
+                       <div className="flex items-center justify-center ml-20 pl-20">
+                       <Block
+                            HeadingLabel_1="Become an"
+                            HeadingLabel_2="Instructor"
+                            HeadingLabel_3="Today"
+                            SubHeadingLine_1="Share your knowledge with thousands of learners"
+                            SubHeadingLine_2="Create and publish your own course with ease"
+                            SubHeadingLine_3="Earn passive income while teaching online"
+                            Button_1_Label="Start Teaching"
+                            Button_2_Label="Learn More"
+                            Button_1_varient="yellow"
+                            Button_2_varient="dark"
+                        />
+                        </div>
+                    </div>          
             
         </>
     )
