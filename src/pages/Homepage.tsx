@@ -22,6 +22,7 @@ import { FaCode } from "react-icons/fa";
 import { RiUserCommunityFill } from "react-icons/ri";
 import { MdAccessAlarm } from "react-icons/md";
 import { EvervaultCardDemo } from "@/components/HoverCardComponent"
+import { InfiniteMovingCardsDemo } from "@/components/InfiniteMovingCardsDemo"
 
 
 
@@ -255,24 +256,36 @@ export const Home = () => {
 
                     <div className="flex flex-row ">
                        <div className="flex items-center justify-center m-10 p-10 ">
-                        {/* Image */}
-                        <img className="w-150 shadow-2xl shadow-slate-600" src={InstructotImage}></img>
+                                {/* Image */}
+                                <img className="w-150 shadow-2xl shadow-slate-600" src={InstructotImage}></img>
                        </div>   
                        <div className="flex items-center justify-center ml-20 pl-20">
-                       <Block
-                            HeadingLabel_1="Become an"
-                            HeadingLabel_2="Instructor"
-                            HeadingLabel_3="Today"
-                            SubHeadingLine_1="Share your knowledge with thousands of learners"
-                            SubHeadingLine_2="Create and publish your own course with ease"
-                            SubHeadingLine_3="Earn passive income while teaching online"
-                            Button_1_Label="Start Teaching"
-                            Button_2_Label="Learn More"
-                            Button_1_varient="yellow"
-                            Button_2_varient="dark"
-                        />
+                            <Block
+                                    HeadingLabel_1="Become an"
+                                    HeadingLabel_2="Instructor"
+                                    HeadingLabel_3="Today"
+                                    SubHeadingLine_1="Share your knowledge with thousands of learners"
+                                    SubHeadingLine_2="Create and publish your own course with ease"
+                                    SubHeadingLine_3="Earn passive income while teaching online"
+                                    Button_1_Label="Start Teaching"
+                                    Button_2_Label="Learn More"
+                                    Button_1_varient="yellow"
+                                    Button_2_varient="dark"
+                                />
                         </div>
-                    </div>          
+                    </div>    
+
+                    <div className="bg-black mt-15">
+                        <div className="flex items-center justify-center">
+                            <HighlightedText
+                                HeadingLabel_1="Review from"
+                                HeadingLabel_2="our Users"
+                                />
+                        </div>
+                        <div className="dark">
+                           <InfiniteMovingCardsDemo/>    
+                        </div>    
+                    </div>      
             
         </>
     )

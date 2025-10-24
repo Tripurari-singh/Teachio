@@ -1,7 +1,7 @@
 interface HighLightedTextInterface {
-    HeadingLabel_1 : string ,
-    HeadingLabel_2 : string , 
-    HeadingLabel_3 : string , 
+    HeadingLabel_1? : string ,
+    HeadingLabel_2? : string , 
+    HeadingLabel_3? : string , 
 }
 export function HighlightedText({HeadingLabel_1 , HeadingLabel_2 , HeadingLabel_3} : HighLightedTextInterface){
     return(
