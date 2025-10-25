@@ -12,7 +12,6 @@ import { CodeDemo } from "@/components/CodeAnimationShadcn"
 import { HighlightedText } from "@/components/HighlightedTextComponent"
 import { ArrowButton } from "@/components/ArrowButtonComponent"
 import { SubHeading } from "@/components/SubHeadingComponent"
-import { FeatureImageComponent } from "@/components/FeatureImageComponent"
 import { FeatureComponent } from "@/components/FeaturesComponent"
 
 import { BsPersonAdd } from "react-icons/bs";
@@ -34,7 +33,8 @@ import AnimatedWaveFooter from "@/components/FooterComponent"
 export const Home = () => {
     return (
         <>
-           <div className="relative h-full w-full">
+           <div className="overflow-x-hidden w-full">
+                  <div className="relative h-full w-full">
                 <div className="relative z-10">
                     {/* All your other components go here, completely unchanged */}
                 <div>
@@ -158,11 +158,11 @@ export const Home = () => {
 
             {/* Section - 2 */}
             <div className="bg-gradient-to-b from-black via-gray-500 to-white h-ful w-full ">
-               <div className=" mt-20 w-full h-full flex flex-row ml-25">
+               <div className=" mt-20 w-full h-full flex flex-row ml-20">
                     <div className="mt-40 mr-auto ml-10 ">
                         <HighlightedText HeadingLabel_1="Get the skills you need"  HeadingLabel_2=" For a Job" HeadingLabel_3="that is in Demand" />
                     </div>
-                    <div className="flex flex-col m-10 mt-40 ml-20">
+                    <div className="flex flex-col m-10 mt-40">
                             <SubHeading
                             SubHeadingLine_1="Learn smarter with Teachio — your gateway to expert-led online courses."
                             SubHeadingLine_2="Master new skills at your own pace, anytime, anywhere."
@@ -175,8 +175,8 @@ export const Home = () => {
                </div>
 
                {/* Features & FeatureImage Components */}
-               <div className="mt-20 flex flex-row">
-                <div className=" ml-25 flex flex-col gap-5 m-5 p-5 rounded-2xl ">
+               <div className="mt-20 mr-5 flex flex-row pb-40">
+                <div className=" ml-25 mr-5 flex flex-col gap-5 m-5 p-5 rounded-2xl ">
                     <FeatureComponent
                         Heading_1="Expert Teachers"
                         Heading_2="Learn from the best minds in the industry."
@@ -211,12 +211,12 @@ export const Home = () => {
                     
                     {/* <FeatureImageComponent/> */}
                     
-                        <div className="ml-20 mr-5 flex items-center justify-stretch rounded-2xl ">
+                        <div className="ml-20 flex items-center justify-stretch rounded-2xl ">
                             <img className="shadow-slate-700 shadow-2xl bg-gradient-to-br" src={CodeImage}></img>
                             {/* Green Block OverLap Component */}
-                            <div className="bg-green-900 text-white absolute flex flex-row items-center px-10 py-10
-                            left-[50%] translate-x-30 translate-y-60 " >
-                                <div className="flex flex-row items-center gap-5 px-4">
+                            <div className="bg-green-900 text-white absolute flex flex-row items-center p-10
+                              left-[50%] translate-40 translate-y-60" >
+                                <div className="flex flex-row items-center gap-5">
                                     <p className="text-3xl font-bold">10</p>
                                     <p className="text-green-400 text-sm"> Years Of Experience</p>
                                 </div>
@@ -233,8 +233,8 @@ export const Home = () => {
                </div>
             </div> 
             {/* bg-gradient-to-b from-white via-gray-500 to-black */}
-                   <div className="bg-gradient-to-b from-white via-slate-950 to-black ">
-                        <div className="flex flex-row gap-2 mt-70 mb-30 p-5">
+                   <div className="bg-gradient-to-b from-white via-slate-950 to-black">
+                        <div className="flex flex-row gap-2 mb-30 p-5">
                             <EvervaultCardDemo
                                     Title="Development"
                                     Subtitle="Learn MERN from zero to job-ready with guided projects & mentor support."
@@ -297,11 +297,12 @@ export const Home = () => {
 
                     {/* Footer    */}
                      
-                    <div className="bg-black">
+                    <div className="bg-gradient-to-b from-white via-slate-950 to-blackk">
                         <div className="">
                           <AnimatedWaveFooter/>
                         </div>
                     </div>
+           </div>
             
         </>
     )
