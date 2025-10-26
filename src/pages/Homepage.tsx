@@ -233,7 +233,7 @@ export const Home = () => {
                </div>
             </div> 
             {/* bg-gradient-to-b from-white via-gray-500 to-black */}
-                   <div className="bg-gradient-to-b from-white via-slate-950 to-black">
+                   <div className="bg-gradient-to-b from-white via-slate-950 to-black pb-30">
                         <div className="flex flex-row gap-2 mb-30 p-5">
                             <EvervaultCardDemo
                                     Title="Development"
@@ -283,12 +283,14 @@ export const Home = () => {
                     </div>
 
                     {/* Reviews Section */}
-                    <div className="bg-black mt-15">
-                        <div className="flex items-center justify-center">
-                            <HighlightedText
+                    <div className="bg-black mt-30">
+                        <div className="flex items-center justify-center mt-30">
+                            <div className="mt-30 rounded-4xl shadow-2xl shadow-slate-500 m-20 px-6">
+                                <HighlightedText
                                 HeadingLabel_1="Review from"
                                 HeadingLabel_2="our Users"
                                 />
+                            </div>
                         </div>
                         <div className="dark">
                            <InfiniteMovingCardsDemo/>    
