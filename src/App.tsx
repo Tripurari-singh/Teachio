@@ -2,12 +2,14 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import { Home } from './pages/Homepage'
 import { Button } from "@/components/ui/button"
+import { HeaderComponent } from './components/common/Header'
 
 
 function App() {
 
   return (
     <>
+    <HeaderComponent/>
       <div className='h-full w-full bg-black text-white
  flex flex-col '>
         <Routes>

@@ -23,7 +23,7 @@ import { MdAccessAlarm } from "react-icons/md";
 import { EvervaultCardDemo } from "@/components/HoverCardComponent"
 import { InfiniteMovingCardsDemo } from "@/components/InfiniteMovingCardsDemo"
 import { WobbleCardDemo } from "@/components/WobbleCardComponent"
-import AnimatedWaveFooter from "@/components/FooterComponent"
+import AnimatedWaveFooter from "@/components/common/Footer"
 
 
 
