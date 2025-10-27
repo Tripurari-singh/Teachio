@@ -1,7 +1,3 @@
-
-
-
-
 import { useState } from "react";
 import { LogoComponent } from "../Logo";
 import { BlackGradientButton } from "./BlackGradientButton";
