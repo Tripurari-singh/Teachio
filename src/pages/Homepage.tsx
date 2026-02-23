@@ -54,11 +54,11 @@ export const Home = () => {
                 {/* Title Section */}
                 <div className="flex flex-col items-center justify-between mt-1 pt-1">
                     <div className="flex">
-                        <div className="m-2 p-2 text-4xl font-bold">
+                        <div className="m-2 p-2 text-6xl font-bold">
                             Upgrade Your Skills.
                         </div>
-                        <div className="m-2 p-2 text-4xl font-bold text-sky-600">
-                            Find New Opportunities
+                        <div className="m-2 p-2 text-6xl font-bold text-sky-600">
+                            Find  Opportunities
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ export const Home = () => {
                 </div>
 
                 {/* Image Section */}
-                <div className="flex flex-col items-center mt-2 pt-2 border-r-yellow-200 shadow-amber-100">
+                {/* <div className="flex flex-col items-center mt-2 pt-2 border-r-yellow-200 shadow-amber-100">
                     <div className="image-container shadow-2xl ">
                         <img
                             src={Myimage}
@@ -93,7 +93,7 @@ export const Home = () => {
                         ></img>
                         <div></div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* Block Component & Code Component */}
