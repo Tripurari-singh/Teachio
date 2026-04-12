@@ -9,8 +9,7 @@ function App() {
 
   return (
     <>
-    <HeaderComponent/>
-      <div className='h-full w-full bg-gradient-to-r from-black via-neutral-600 to-black text-white
+        <div className='h-full w-full bg-gradient-to-r from-black via-neutral-600 to-black text-white
  flex flex-col '>
         <Routes>
           <Route path='/' element={<Home/>} ></Route>

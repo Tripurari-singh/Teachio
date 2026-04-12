@@ -1,6 +1,4 @@
 
-import { FaArrowCircleRight } from "react-icons/fa"
-import { Button } from "../components/Button"
 import { Block } from "../components/BlockComponent"
 //@ts-ignore
 import CodeImage from "../assets/Code.png"
@@ -21,6 +19,7 @@ import { MdAccessAlarm } from "react-icons/md";
 import { InfiniteMovingCardsDemo } from "@/components/InfiniteMovingCardsDemo"
 import { WobbleCardDemo } from "@/components/WobbleCardComponent"
 import AnimatedWaveFooter from "@/components/common/Footer"
+import Index from "@/components/Hero_section"
 
 
 
@@ -33,8 +32,7 @@ export const Home = () => {
            <div className="overflow-x-hidden w-full ">
                   <div className="relative h-full w-full">
                 <div className="relative z-10">
-                    {/* All your other components go here, completely unchanged */}
-                
+                    <Index></Index>
                 {/* section 1 */}
                 {/* Block Component & Code Component */}
             <div className="flex justify-around m-10 p-20">
