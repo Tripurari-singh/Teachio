@@ -66,7 +66,7 @@ const Index = () => {
       <section style={{
         position: "relative",
         overflow: "hidden",
-        padding: "6rem 2rem 5rem",
+        padding: "7rem 3rem 5rem",
         textAlign: "center",
         maxWidth: "800px",
         margin: "0 auto",
@@ -97,9 +97,9 @@ const Index = () => {
         </div>
 
         <h1 style={{
-          fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
+          fontSize: "clamp(4.4rem, 5vw, 3.5rem)",
           fontWeight: 800,
-          lineHeight: 1.1,
+          lineHeight: 1.3,
           letterSpacing: "-0.03em",
           marginBottom: "1.5rem",
           position: "relative",
@@ -116,7 +116,7 @@ const Index = () => {
 
         <p style={{
           color: "#777",
-          fontSize: "1.1rem",
+          fontSize: "1.3rem",
           lineHeight: 1.7,
           maxWidth: "560px",
           margin: "0 auto 2.5rem",
