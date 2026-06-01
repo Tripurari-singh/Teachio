@@ -1,28 +1,32 @@
-import { Route, Routes } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import { Home } from './pages/Homepage'
-import { Button } from "@/components/ui/button"
-import { HeaderComponent } from './components/common/Header'
-
+import { LoginPage } from './pages/auth/Login'
+import { SignupPage } from './pages/auth/Signup'
+import { CoursesPage } from './pages/courses/Courses'
+import { CourseDetailPage } from './pages/courses/CourseDetail'
+import { DashboardPage } from './pages/dashboard/Dashboard'
+import { AboutPage } from './pages/About'
+import { ContactPage } from './pages/Contact'
+import { PrivateRoute } from './components/common/PrivateRoute'
 
 function App() {
-
   return (
-    <>
-        <div className='h-full w-full bg-gradient-to-r from-black via-neutral-600 to-black text-white
- flex flex-col '>
-        <Routes>
-          <Route path='/' element={<Home/>} ></Route>
-        </Routes>
-      </div>
-    </>
+    <div className='min-h-screen w-full bg-gradient-to-r from-black via-neutral-900 to-black text-white'>
+      <Routes>
+        <Route path='/'              element={<Home />} />
+        <Route path='/login'         element={<LoginPage />} />
+        <Route path='/signup'        element={<SignupPage />} />
+        <Route path='/courses'       element={<CoursesPage />} />
+        <Route path='/courses/:id'   element={<CourseDetailPage />} />
+        <Route path='/about'         element={<AboutPage />} />
+        <Route path='/contact'       element={<ContactPage />} />
+        <Route path='/dashboard'     element={
+          <PrivateRoute><DashboardPage /></PrivateRoute>
+        } />
+      </Routes>
+    </div>
   )
 }
 
 export default App
-// min-h-screen bg-gradient-to-r from-[#0f0f0f] via-[#1a1a1a] to-[#111827] text-gray-100
-// bg-gradient-to-b from-[#0a0f1f] via-[#0f172a] to-[#020617]
-
-
-
-
